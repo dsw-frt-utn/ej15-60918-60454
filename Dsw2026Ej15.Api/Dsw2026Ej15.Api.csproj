@@ -17,7 +17,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\specialities.json" Link="specialities.json">
+		<None Include="specialities.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

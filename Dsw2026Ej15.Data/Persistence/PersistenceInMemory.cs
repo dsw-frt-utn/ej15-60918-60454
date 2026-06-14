@@ -57,8 +57,7 @@ public class PersistenceInMemory : IPersistence
 
     private List<Speciality> LoadSpecialities()
     {
-        string rootPath = Directory.GetCurrentDirectory();
-        string filePath = Path.Combine(rootPath, "specialities.json");
+        string filePath = Path.Combine(AppContext.BaseDirectory, "specialities.json");
 
         if (!File.Exists(filePath))
         {

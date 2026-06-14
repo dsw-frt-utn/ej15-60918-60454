@@ -1,4 +1,5 @@
 using System;
+using Dsw2026Ej15.Api.Middleware;
 using Dsw2026Ej15.Data.Persistence;
 using Dsw2026Ej15.Domain.Interfaces;
 
@@ -9,8 +10,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IPersistence, PersistenceInMemory>();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -20,6 +23,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseMiddleware<ExceptionMiddleware>();
 
-app.Run(); ;
+app.MapControllers();
+app.MapHealthChecks("/health-check");
+
+var persistence = app.Services.GetRequiredService<IPersistence>();
+
+Console.WriteLine("=== SPECIALITIES CARGADAS ===");
+foreach (var speciality in persistence.GetAllSpecialities())
+{
+    Console.WriteLine($"{speciality.Id} - {speciality.Name}");
+}
+Console.WriteLine("=============================");
+
+app.Run();
