@@ -7,4 +7,6 @@ public class Doctor : BaseEntity
     public string LicenseNumber { get; set; } = string.Empty;
     public bool IsActive { get; set; }
     public Speciality? Speciality { get; set; }
+
+    public Guid SpecialityId { get; set; }
 }
